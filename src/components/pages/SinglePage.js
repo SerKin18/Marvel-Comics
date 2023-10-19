@@ -10,7 +10,7 @@ const SinglePage = ({ Component, dataType }) => {
   const { id } = useParams();
   const [data, setData] = useState(null);
 
-  const { loading, error, getComic, getCharacter, clearError } =
+  const { loading, error, getComics, getCharacter, clearError } =
     useMarvelService();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const SinglePage = ({ Component, dataType }) => {
     clearError();
     switch (dataType) {
       case "comic":
-        getComic(id).then(onDataLoaded);
+        getComics(id).then(onDataLoaded);
         break;
       case "character":
         getCharacter(id).then(onDataLoaded);
@@ -34,7 +34,9 @@ const SinglePage = ({ Component, dataType }) => {
 
   const errorMessage = error ? <ErrorMessage /> : null;
   const spinner = loading ? <Spinner /> : null;
-  const content = !(loading || error || !data) ? (<Component data={data} />) : null;
+  const content = !(loading || error || !data) ? (
+    <Component data={data} />
+  ) : null;
 
   return (
     <>
